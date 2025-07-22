@@ -35,13 +35,18 @@ class ZKTeco
     public $_password = 0;
 
     /**
-     * @param string $ip         Device IP address.
-     * @param int    $port       Port number. Default: 4370.
-     * @param bool   $shouldPing should ping before device connection
-     * @param int    $timeout    timeout in sec
+     * @param  string  $ip  Device IP address.
+     * @param  int  $port  Port number. Default: 4370.
+     * @param  bool  $shouldPing  should ping before device connection
+     * @param  int  $timeout  timeout in sec
      */
-    public function __construct(string $ip, int $port = 4370, bool $shouldPing = false, int $timeout = 25, $password = 0)
-    {
+    public function __construct(
+        string $ip,
+        int $port = 4370,
+        bool $shouldPing = false,
+        int $timeout = 25,
+        $password = 0
+    ) {
         $this->_ip = $ip;
         $this->_port = $port;
         $this->_requiredPing = $shouldPing;
@@ -56,23 +61,23 @@ class ZKTeco
     /**
      * Overwrite ping setup.
      *
-     * @param bool $shouldPing
-     * @param bool $silentPing
+     * @param  bool  $shouldPing
+     * @param  bool  $silentPing
      *
      * @return void
      */
     public function setPing(bool $shouldPing = false, bool $silentPing = true): void
     {
-        $this->_silentPing = (bool) $silentPing;
-        $this->_requiredPing = (bool) $shouldPing;
+        $this->_silentPing = (bool)$silentPing;
+        $this->_requiredPing = (bool)$shouldPing;
     }
 
     /**
      * Create and send command to device.
      *
-     * @param string $command
-     * @param string $command_string
-     * @param string $type
+     * @param  string  $command
+     * @param  string  $command_string
+     * @param  string  $type
      *
      * @return bool|mixed
      */
@@ -229,6 +234,16 @@ class ZKTeco
     }
 
     /**
+     * Retrieves the ID of the device.
+     *
+     * @return bool|mixed The ID of the device.
+     */
+    public function deviceId()
+    {
+        return Device::id($this);
+    }
+
+    /**
      * Retrieves the name of the device.
      *
      * @return bool|mixed The name of the device.
@@ -259,6 +274,36 @@ class ZKTeco
     }
 
     /**
+     * Retrieves device default data of the device.
+     * https://github.com/adrobinoga/zk-protocol/blob/master/sections/terminal.md
+     * @return string The custom data of the device.
+     */
+    public function getDeviceData(string $key)
+    {
+        return Device::getData($this, $key);
+    }
+
+    /**
+     * Set Custom Data In the device.
+     *
+     * @return bool|mixed True if the data was successfully, else false.
+     */
+    public function setCustomData(string $key, $value)
+    {
+        return Device::setCustom($this, $key, $value);
+    }
+
+    /**
+     * Retrieves device custom data of the device.
+     *
+     * @return string The custom data of the device.
+     */
+    public function getCustomData(string $key)
+    {
+        return Device::getCustom($this, $key);
+    }
+
+    /**
      * Retrieves user data from the device.
      *
      * @return array An array containing user data.
@@ -271,12 +316,12 @@ class ZKTeco
     /**
      * Sets user data for the specified user.
      *
-     * @param int        $uid      Unique ID of the user.
-     * @param int|string $userid   ID in DB.
-     * @param string     $name     Name of the user.
-     * @param int|string $password Password for the user.
-     * @param int        $role     Role of the user.
-     * @param int        $cardno   Card number associated with the user.
+     * @param  int  $uid  Unique ID of the user.
+     * @param  int|string  $userid  ID in DB.
+     * @param  string  $name  Name of the user.
+     * @param  int|string  $password  Password for the user.
+     * @param  int  $role  Role of the user.
+     * @param  int  $cardno  Card number associated with the user.
      *
      * @return bool|mixed True if user data was successfully set.
      */
@@ -318,7 +363,7 @@ class ZKTeco
     /**
      * Removes a user identified by the specified UID from the device.
      *
-     * @param int $uid The unique ID of the user to be removed.
+     * @param  int  $uid  The unique ID of the user to be removed.
      *
      * @return bool|mixed True if the user was successfully removed.
      */
@@ -330,8 +375,8 @@ class ZKTeco
     /**
      * Sets a fingerprint for a specified user on the device.
      *
-     * @param int   $uid         Unique ID of the user.
-     * @param array $fingerprint Array of fingerprint binary data.
+     * @param  int  $uid  Unique ID of the user.
+     * @param  array  $fingerprint  Array of fingerprint binary data.
      *
      * @return bool|mixed True if fingerprint data was successfully set.
      */
@@ -343,8 +388,8 @@ class ZKTeco
     /**
      * Sets a fingerprint for a specified user on the device.
      *
-     * @param int   $uid         Unique ID of the user.
-     * @param array $fingerprint Array of fingerprint binary data.
+     * @param  int  $uid  Unique ID of the user.
+     * @param  array  $fingerprint  Array of fingerprint binary data.
      *
      * @return bool|mixed True if fingerprint data was successfully set.
      */
@@ -356,8 +401,8 @@ class ZKTeco
     /**
      * Removes fingerprints associated with the specified UID and fingers ID array from the device.
      *
-     * @param int   $uid  Unique ID (max 65535) of the user whose fingerprints will be removed.
-     * @param array $data Array containing the fingers ID (0-9) of the fingerprints to be removed.
+     * @param  int  $uid  Unique ID (max 65535) of the user whose fingerprints will be removed.
+     * @param  array  $data  Array containing the fingers ID (0-9) of the fingerprints to be removed.
      *
      * @return int The count of deleted fingerprints.
      */
@@ -389,7 +434,7 @@ class ZKTeco
     /**
      * Sets the device time to the specified value.
      *
-     * @param string $t The time to set, in the format "Y-m-d H:i:s".
+     * @param  string  $t  The time to set, in the format "Y-m-d H:i:s".
      *
      * @return bool|mixed True if the device time was successfully set, otherwise returns the result from Time::set.
      */

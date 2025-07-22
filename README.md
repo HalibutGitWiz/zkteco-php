@@ -25,10 +25,15 @@ composer require coding-libs/zkteco-php
 
 use CodingLibs\ZktecoPhp\Libs\ZKTeco;
 $zktecoLib = new Zkteco('192.168.1.1');
+//$zktecoLib = new Zkteco(ip:'192.168.1.1', port:4370, shouldPing:false, timeout:25, password:12345); // Password means CMD Key
 $zkteco->connect();
 
 $zktecoLib->vendorName(); // "ZKTeco Inc.
 $zktecoLib->deviceName(); // "F22/ID
+$zktecoLib->deviceId(); // "0 
+$zktecoLib->getDeviceData('TCPPort'); // "4370
+$zktecoLib->setCustomData('my_company_name', "Coding Labs"); // You can set any custom value as you want
+$zktecoLib->getCustomData("my_company_name"); // "Coding Labs
 $zktecoLib->serialNumber(); // "BOCK201261276
 $zktecoLib->pinWidth(); // "14
 $zktecoLib->faceFunctionOn(); // "0
@@ -60,6 +65,7 @@ If you've found a bug regarding security please mail [codinglibs4u@gmail.com](ma
 - [adrobinoga/zk-protocol](https://github.com/adrobinoga/zk-protocol)
 - [dnaextrim/python_zklib](https://github.com/dnaextrim/python_zklib)
 - [caobo171/node-zklib](https://github.com/caobo171/node-zklib)
+- [agile-bm/zk-lib](https://github.com/agile-bm/zk-lib)
 
 
 ## License

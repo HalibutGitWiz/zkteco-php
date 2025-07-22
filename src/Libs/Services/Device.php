@@ -29,6 +29,90 @@ class Device
     }
 
     /**
+     * Get the ID of the device.
+     *
+     * @param ZKTeco $self The instance of the ZKTecoPhp class.
+     *
+     * @return bool|mixed Returns the device ID if successful, false otherwise.
+     */
+    public static function id(ZKTeco $self)
+    {
+        // ping to device
+        Ping::run($self);
+
+        $self->_section = __METHOD__;
+
+        $command = Util::CMD_DEVICE;
+        $command_string = 'DeviceID';
+
+        $data = $self->_command($command, $command_string);
+
+        return Util::trimDeviceData($data, $command_string);
+    }
+
+    /**
+     * Set Custom data in the device.
+     *
+     * @param ZKTeco $self The instance of the ZKTecoPhp class.
+     *
+     * @return bool|mixed Returns true if successful, false otherwise.
+     */
+    public static function setCustom(ZKTeco $self, string $key, $value)
+    {
+        // ping to device
+        Ping::run($self);
+
+        $self->_section = __METHOD__;
+
+        $command = Util::CMD_OPTIONS_WRQ;
+        $command_string = "*{$key}={$value}";
+        $data = $self->_command($command, $command_string);
+
+        return Util::trimDeviceData($data, $command_string);
+    }
+
+    /**
+     * Get Custom data in the device.
+     *
+     * @param ZKTeco $self The instance of the ZKTecoPhp class.
+     *
+     * @return bool|mixed Returns the device custom data if successful, false otherwise.
+     */
+    public static function getCustom(ZKTeco $self, string $key)
+    {
+        // ping to device
+        Ping::run($self);
+
+        $self->_section = __METHOD__;
+
+        $command = Util::CMD_DEVICE;
+        $command_string = "*{$key}";
+        $data = $self->_command($command, $command_string);
+
+        return Util::trimDeviceData($data, $command_string);
+    }
+
+    /**
+     * Get data in the device.
+     *
+     * @param ZKTeco $self The instance of the ZKTecoPhp class.
+     *
+     * @return bool|mixed Returns the device data if successful, false otherwise.
+     */
+    public static function getData(ZKTeco $self, string $commandKey)
+    {
+        // ping to device
+        Ping::run($self);
+
+        $self->_section = __METHOD__;
+
+        $command = Util::CMD_DEVICE;
+        $data = $self->_command($command, $commandKey);
+
+        return Util::trimDeviceData($data, $commandKey);
+    }
+
+    /**
      * Enable the device.
      *
      * @param ZKTeco $self The instance of the ZKTecoPhp class.
