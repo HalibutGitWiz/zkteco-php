@@ -32,7 +32,7 @@ class ZKTeco
     public $_section = '';
     public $_requiredPing = false;
     public $_silentPing = false;
-    public $_password = false;
+    public $_password = 0;
 
     /**
      * @param string $ip         Device IP address.
@@ -44,8 +44,8 @@ class ZKTeco
     {
         $this->_ip = $ip;
         $this->_port = $port;
-        $this->_requiredPing = (bool) $shouldPing;
-        $this->_password = $password;
+        $this->_requiredPing = $shouldPing;
+        $this->_password = (int)$password;
 
         $this->_zkclient = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 
