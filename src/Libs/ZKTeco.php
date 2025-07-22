@@ -32,6 +32,7 @@ class ZKTeco
     public $_section = '';
     public $_requiredPing = false;
     public $_silentPing = false;
+    public $_password = false;
 
     /**
      * @param string $ip         Device IP address.
@@ -39,11 +40,12 @@ class ZKTeco
      * @param bool   $shouldPing should ping before device connection
      * @param int    $timeout    timeout in sec
      */
-    public function __construct(string $ip, int $port = 4370, bool $shouldPing = false, int $timeout = 25)
+    public function __construct(string $ip, int $port = 4370, bool $shouldPing = false, int $timeout = 25, $password = 0)
     {
         $this->_ip = $ip;
         $this->_port = $port;
         $this->_requiredPing = (bool) $shouldPing;
+        $this->_password = $password;
 
         $this->_zkclient = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 
