@@ -294,16 +294,19 @@ class Util
      * Checks a returned packet to see if it returned Util::CMD_ACK_OK,
      * indicating success.
      */
-    public static function checkValid($reply)
+    static public function checkValid($reply)
     {
         $u = unpack('H2h1/H2h2', substr($reply, 0, 8));
 
-        $command = hexdec($u['h2'].$u['h1']);
-        /** TODO: Some device can return 'Connection unauthorized' then should check also */
-        if ($command == self::CMD_ACK_OK || $command == self::CMD_ACK_UNAUTH) {
-            return true;
-        } else {
-            return false;
+        $command = hexdec($u['h2'] . $u['h1']);
+        switch($command) {
+            case self::CMD_ACK_AUTH:
+            case self::CMD_ACK_OK:
+            case self::CMD_ACK_UNAUTH:
+                return $command;
+                break;
+            default:
+                return false;
         }
     }
 

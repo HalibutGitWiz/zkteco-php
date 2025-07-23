@@ -61,8 +61,12 @@ class Connect
                         if (empty($session)) {
                             return false;
                         }
+
+                        $result = Util::checkValid($self->_data_recv);
+                        if($result == Util::CMD_ACK_UNAUTH){
+                            return false;
+                        }
                         $self->_session_id = $session;
-                        return Util::checkValid($self->_data_recv);
                     }
                 }
                 return $result;
