@@ -35,6 +35,7 @@ class Util
     const CMD_FREE_DATA = 1502; // Clear machines open buffer
 
     const CMD_USER_TEMP_RRQ = 9; // Read some fingerprint template or some kind of data entirely
+    const CMD_OPTIONS_WRQ = 12; // Write configuration options or custom data to the device.
     const CMD_ATT_LOG_RRQ = 13; // Read all attendance record
     const CMD_CLEAR_DATA = 14; // Clear Data
     const CMD_CLEAR_ATT_LOG = 15; // Clear attendance records
