@@ -303,6 +303,27 @@ class ZKTeco
         return Device::getCustom($this, $key);
     }
 
+
+    /**
+     * Set Push Comm Key In the device.
+     *
+     * @return bool|mixed True if the data was successfully, else false.
+     */
+    public function setPushCommKey($value)
+    {
+        return Device::setPushCommKey($this, $value);
+    }
+
+    /**
+     * Retrieves device custom data of the device.
+     *
+     * @return string The custom data of the device.
+     */
+    public function getPushCommKey()
+    {
+        return Device::getPushCommKey($this);
+    }
+
     /**
      * Retrieves user data from the device.
      *

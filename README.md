@@ -30,10 +30,6 @@ $zkteco->connect();
 
 $zktecoLib->vendorName(); // "ZKTeco Inc.
 $zktecoLib->deviceName(); // "F22/ID
-$zktecoLib->deviceId(); // "0 
-$zktecoLib->getDeviceData('TCPPort'); // "4370
-$zktecoLib->setCustomData('my_company_name', "Coding Labs"); // You can set any custom value as you want
-$zktecoLib->getCustomData("my_company_name"); // "Coding Labs
 $zktecoLib->serialNumber(); // "BOCK201261276
 $zktecoLib->pinWidth(); // "14
 $zktecoLib->faceFunctionOn(); // "0
@@ -48,9 +44,23 @@ $zktecoLib->getAttendances(); // attendances logs
 $zktecoLib->getTime(); // device time
 $zktecoLib->clearAdminPriv(); // Removes the admin privileges from the current user.
 $zktecoLib->clearAllUsers(); // clear all users
+```
+#### We have introduced some unique methods.
+```php
+$zktecoLib->getAttendances(function ($item){
+// condition goes there
+    return $item;
+}); // attendances logs
 $zktecoLib->deleteUsers(function($user){
    // condition goes there
 }); // delete users conditionally
+$zktecoLib->deviceId(); // "0 
+$zktecoLib->getDeviceData('TCPPort'); // "4370
+$zktecoLib->setCustomData('my_company_name', "Coding Labs"); // You can set any custom value as you want
+$zktecoLib->getCustomData("my_company_name"); // "Coding Labs
+$zktecoLib->setPushCommKey("iclock_push_commKey"); // It may be useful for iClock authentication.
+$zktecoLib->getPushCommKey(); // "iclock_push_commKey
+# and more...
 ```
 
 ## Contributing
@@ -65,7 +75,7 @@ If you've found a bug regarding security please mail [codinglibs4u@gmail.com](ma
 - [adrobinoga/zk-protocol](https://github.com/adrobinoga/zk-protocol)
 - [dnaextrim/python_zklib](https://github.com/dnaextrim/python_zklib)
 - [caobo171/node-zklib](https://github.com/caobo171/node-zklib)
-- [agile-bm/zk-lib](https://github.com/agile-bm/zk-lib)
+#- [agile-bm/zk-lib](https://github.com/agile-bm/zk-lib)
 
 
 ## License

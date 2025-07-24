@@ -66,9 +66,7 @@ class Device
 
         $command = Util::CMD_OPTIONS_WRQ;
         $command_string = "*{$key}={$value}";
-        $data = $self->_command($command, $command_string);
-
-        return Util::trimDeviceData($data, $command_string);
+        return $self->_command($command, $command_string);
     }
 
     /**
@@ -91,6 +89,49 @@ class Device
 
         return Util::trimDeviceData($data, $command_string);
     }
+
+
+    /**
+     * Set pushcommkey in the device.
+     *
+     * @param ZKTeco $self The instance of the ZKTecoPhp class.
+     *
+     * @return bool|mixed Returns true if successful, false otherwise.
+     */
+    public static function setPushCommKey(ZKTeco $self, $value)
+    {
+        // ping to device
+        Ping::run($self);
+
+        $self->_section = __METHOD__;
+
+        $command = Util::CMD_OPTIONS_WRQ;
+        $command_string = "pushcommkey={$value}";
+        return $self->_command($command, $command_string);
+    }
+
+    /**
+     * Get pushcommkey in the device.
+     *
+     * @param ZKTeco $self The instance of the ZKTecoPhp class.
+     *
+     * @return bool|mixed Returns the device pushcommkey if successful, false otherwise.
+     */
+    public static function getPushCommKey(ZKTeco $self)
+    {
+        // ping to device
+        Ping::run($self);
+
+        $self->_section = __METHOD__;
+
+        $command = Util::CMD_DEVICE;
+        $command_string = "pushcommkey";
+        $data = $self->_command($command, $command_string);
+
+        return Util::trimDeviceData($data, $command_string);
+    }
+
+
 
     /**
      * Get data in the device.
